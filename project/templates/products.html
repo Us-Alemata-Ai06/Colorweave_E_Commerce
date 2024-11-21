@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products - ColorWeave</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+</head>
+<body>
+    {% extends "base.html" %}
+
+    {% block title %}Products - ColorWeave{% endblock %}
+    
+    {% block content %}
+    <header class="header products-header">
+        <div class="container">
+            <h1>Our Products</h1>
+            <p>Explore Our Exclusive Handmade Bracelets</p>
+        </div>
+    </header>
+    <section class="products-section">
+        <div class="container">
+            <div class="product-list">
+                <!-- Product 1 -->
+                <div id="colorweave" class="product-item">
+                    <img src="{{ url_for('static', filename='bracelet1.jpg') }}" alt="ColorWeave Bracelet" class="product-image">
+                    <h3>ColorWeave Bracelet</h3>
+                    <p>Price: Rp 5,000</p>
+                    <a href="https://wa.me/+6281389922040" class="btn-buy">Buy Now</a>
+                    <h4>Payment Methods:</h4>
+                    <ul class="payment-methods">
+                        <li>💳 E-Wallet</li>
+                        <li>🏠 COD (Cash on Delivery)</li>
+                        <li>🏦 Bank Transfer</li>
+                    </ul>
+                </div>
+                <!-- Product 2 -->
+                <div id="manikmanik" class="product-item">
+                    <img src="{{ url_for('static', filename='bracelet2.jpg') }}" alt="Manik Manik" class="product-image">
+                    <h3>ColorWeave Bracelet + Manik Manik</h3>
+                    <p>Price: Rp 5,000</p>
+                    <a href="https://wa.me/+6281389922040" class="btn-buy">Buy Now</a>
+                    <h4>Payment Methods:</h4>
+                    <ul class="payment-methods">
+                        <li>💳 E-Wallet</li>
+                        <li>🏠 COD (Cash on Delivery)</li>
+                        <li>🏦 Bank Transfer</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    {% endblock %}
+    
+    {% block footer %}
+    <footer class="footer">
+        <div class="container">
+            <img src="{{ url_for('static', filename='BSI.png') }}" alt="Logo Universitas BSI" class="footer-image">
+            <p>Website E-commerce Universitas Bina Sarana Informatika</p>
+            <p>&copy; 2024 ColorWeave. All rights reserved.</p>
+        </div>
+    </footer>
+    {% endblock %}  
+    
+</body>
+</html>
