@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}ColorWeave{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+</head>
+<body>
+    <header class="navbar">
+        <div class="container">
+            <nav>
+                <a href="/">Home</a>
+                <a href="/about">About</a>
+                <a href="/products">Product</a>
+                <a href="/contact">Contact</a>
+            </nav>
+        </div>
+    </header>
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+    <footer class="footer">
+        <img src="{{ url_for('static', filename='BSI.png') }}" alt="Bina Sarana Informatika Logo" style="max-width: 100px; margin-top: 10px;">
+        <div class="container">
+            <p>Website E-commerce Universitas Bina Sarana Informatika</p>
+        </div>
+    </footer>
+    
+</body>
+</html>
