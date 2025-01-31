@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart - ColorWeave</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+</head>
+<body>
+    {% extends "base.html" %}
+
+    {% block title %}Your Cart - ColorWeave{% endblock %}
+
+    {% block content %}
+    <header class="header cart-header">
+        <div class="container">
+            <h1>🛒 Your Shopping Cart</h1>
+            <p>Review your selected items before checkout!</p>
+        </div>
+    </header>
+
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+{% if messages %}
+    <div class="flash-messages">
+        {% for category, message in messages %}
+            {% if category == 'success' %}
+                <div class="alert {{ category }}">
+                    {{ message }}
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+{% endif %}
+{% endwith %}
+
+    <section class="cart-section">
+        <div class="container">
+            {% if cart_items %}
+            <table class="cart-table">
+                <thead>
+                    <tr>
+                        <th>📸 Image</th>
+                        <th>🛍️ Product Name</th>
+                        <th>💲 Price</th>
+                        <th>🔢 Quantity</th>
+                        <th>🗑️ Remove</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in cart_items %}
+                    <tr>
+                        <td><img src="{{ url_for('static', filename=item.image) }}" alt="{{ item.name }}" class="cart-image"></td>
+                        <td>{{ item.name }}</td>
+                        <td>Rp {{ item.price }}</td>
+                        <td>
+                            <form action="/update-cart/{{ item.id }}" method="POST">
+                                <input type="number" name="quantity" value="{{ item.quantity }}" min="1" required>
+                                <button type="submit" class="btn-update">Update</button>
+                            </form>
+                            
+                        </td>
+                        <td>
+                            <a href="/remove-from-cart/{{ item.id }}" class="btn-remove">Remove</a>
+                        </td>                       
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <div class="cart-total">
+                <h3>Total: 💰 Rp {{ cart_total }}</h3>
+            </div>           
+            <div class="cart-actions">
+                <a href="/products" class="btn-continue">⬅️ Continue Shopping</a>
+                <a href="https://wa.me/+6281389922040?text=Halo%20ColorWeave%2C%20saya%20ingin%20melakukan%20checkout%20untuk%20pesanan%20saya.%20Total%20belanja%20saya%20adalah%20Rp%20{{ cart_total }}.%0AProduk%20yang%20saya%20beli%3A%0A{% for item in cart_items %}{{ item.name }}%20x%20{{ item.quantity }}%0A{% endfor %}" 
+                class="btn-checkout" 
+                target="_blank">🛒 Checkout</a>            
+            </div>
+            {% else %}
+            <div class="empty-cart">
+                <p>Your cart is currently empty. 🛍️ Start shopping now!</p>
+                <a href="/products" class="btn-continue">🛒 Shop Now</a>
+            </div>
+            {% endif %}
+        </div>
+    </section>
+    {% endblock %}
+
+    {% block footer %}
+    <footer class="footer">
+        <div class="container">
+            <img src="{{ url_for('static', filename='BSI.png') }}" alt="Logo Universitas BSI" class="footer-image">
+            <p>Website E-commerce Universitas Bina Sarana Informatika</p>
+            <p>&copy; 2024 ColorWeave. All rights reserved.</p>
+        </div>
+    </footer>
+    {% endblock %}
+</body>
+</html>

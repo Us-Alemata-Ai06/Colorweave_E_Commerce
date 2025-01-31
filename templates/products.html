@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products - ColorWeave</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+</head>
+<body>
+    {% extends "base.html" %}
+
+    {% block title %}Products - ColorWeave{% endblock %}
+    
+    {% block content %}
+    <header class="header products-header">
+        <div class="container">
+            <h1>Our Products</h1>
+            <p>Explore Our Exclusive Handmade Bracelets</p>
+        </div>
+    </header>
+    
+    <section class="products-section">
+        <div class="container">
+            <div class="product-list">
+                {% for product in products %}
+                    <div id="product-{{ product.id }}" class="product-item">
+                        <img src="{{ url_for('static', filename=product.image) }}" alt="{{ product.name }}" class="product-image">
+                        <h3>{{ product.name }}</h3>
+                        <p>Price: Rp {{ product.price }}</p>
+                        <form action="/add-to-cart" method="POST">
+                            <input type="hidden" name="product_id" value="{{ product.id }}">
+                            <button type="submit" class="add-to-cart-btn">Add to Cart</button>
+                        </form>
+                        <h4>Payment Methods:</h4>
+                        <ul class="payment-methods">
+                            <li>💳 E-Wallet</li>
+                            <li>🏠 COD (Cash on Delivery)</li>
+                            <li>🏦 Bank Transfer</li>
+                        </ul>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+    {% endblock %}
+    
+    
+    {% block footer %}
+    <footer class="footer">
+        <div class="container">
+            <img src="{{ url_for('static', filename='BSI.png') }}" alt="Logo Universitas BSI" class="footer-image">
+            <p>Website E-commerce Universitas Bina Sarana Informatika</p>
+            <p>&copy; 2024 ColorWeave. All rights reserved.</p>
+        </div>
+    </footer>
+    {% endblock %}  
+    
+</body>
+</html>
